@@ -56,3 +56,15 @@ A Claude Code session that was already running when these files were added keeps
 ## Updating
 
 Fetch the new revision with the command above, compare each file with the table, re-apply the local changes, and update the revision and hashes in this file in the same commit.
+
+## Local change: automatic delegation (2026-11-22)
+
+One sentence beginning "Use proactively" was appended to the `description:` line of every Agency Agents role in `.claude/agents/` (not to `loop-verifier`). Claude Code uses that field to decide when to delegate, so the roles now run during ticket work without being named. Nothing else in the role files changed.
+
+This supersedes any statement above that a role file is unmodified or that the `tools:` line is the only local change. To compare a role with the pinned upstream file, remove that sentence (and the `tools:` line where one was added) first.
+
+The steps at which each role runs are in `.claude/skills/implement-ticket/SKILL.md`.
+
+## Local change: project section "In this repository" (2026-11-22)
+
+A section titled "In this repository" was inserted directly after the frontmatter of every Agency Agents role in `.claude/agents/` (not `loop-verifier`). It is project-specific text written for this repository, not upstream text: it describes the planned stack, modules and commands from `docs/TECHNICAL_SPEC.md` and marks them as planned because no code exists yet. To compare a role with the pinned upstream file, remove that section as well as the "Use proactively" sentence (and the `tools:` line where one was added).

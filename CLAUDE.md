@@ -80,3 +80,15 @@ Record real output; never summarise a run you did not make. Items 1 to 5 are rec
 7. Anything not verified, said plainly.
 
 Order for every ticket: local checks, Code Reviewer, Reality Checker, draft pull request, CI, then ready only when CI is green.
+
+## Agent roles
+
+Project subagents are in `.claude/agents/`: ten Agency Agents roles (Software Architect, Backend Architect, Frontend Developer, Test Automation Engineer, API Tester, Application Security Engineer, Accessibility Auditor, Performance Benchmarker, Code Reviewer, Reality Checker) and `loop-verifier`, which belongs to the Loop setup. Each Agency Agents role file starts with a section "In this repository", written for this project: the stack and hard rules that bind the role, the files it owns or reviews, its commands or the output it must be given, a checklist, what does not apply from the generic text, and what it hands back. That section and this file override the generic text below it. Sources, licence, local changes and the name collision with a user-level install are in [.claude/agency-agents/README.md](.claude/agency-agents/README.md).
+
+When asked to implement, continue or finish a GitHub issue, follow the playbook [`.claude/skills/implement-ticket/SKILL.md`](.claude/skills/implement-ticket/SKILL.md). Claude Code loads it on its own for ticket work; `/implement-ticket <issue number>` starts it by hand. Delegate to the roles without waiting to be asked: each role's `description` ends with a "Use proactively ..." sentence, which is what makes Claude Code delegate. The playbook gives the trigger of each role.
+
+- **Before coding:** Software Architect, when the ticket changes a module boundary, the trace format, the viewer contract or a dependency.
+- **While coding:** Backend Architect for Python code, Frontend Developer for the viewer's static files, Test Automation Engineer for fixtures and tests.
+- **After coding:** each specialist whose trigger matches (Application Security Engineer, Accessibility Auditor, API Tester, Performance Benchmarker).
+- **On every ticket, before it is called done:** Code Reviewer, then Reality Checker. Read-only roles cannot run commands: give them the diff, the acceptance criteria and the recorded output.
+- The session that wrote a change does not count as its reviewer. List each role that ran, what it was asked and its verdict in the pull request under "Agent roles run".
