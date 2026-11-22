@@ -26,9 +26,9 @@ Entry 11 (Rust verified in CI only) does not apply: this repository has no Rust.
 |---|---|---|---|
 | D1 | Supported Python | Require 3.12 or newer, refuse older with a message; CI runs 3.12 and 3.13; if the tally sequence differs between them, assert per-version expectations and report it | #2 |
 | D2 | Package and command name | `ttdebug`, run as `python -m ttdebug` | #2 |
-| D3 | Capture caps | nesting 3, string 256 bytes, 20 collection items, 32 locals, stack depth 50, 200,000 events, 64 MiB trace, 1 MiB record, 10 s deadline; confirmed or adjusted with the first real fixture and written into the spec; budgets and deadline are overridden only by the `record` flags `--deadline`, `--max-events`, `--max-trace-bytes` | recorder-contract ticket |
-| D4 | Fixture stdout and stderr | Discarded, never stored | recorder-contract ticket |
-| D5 | Exit codes | Recorder: 0 complete, 1 failed or truncated, 2 usage, 3 deadline. Viewer (`serve`): 0 normal stop, 1 cannot start (port in use, missing directory), 2 usage; kept separate from the recorder's | #2, recorder-contract ticket |
+| D3 | Capture caps | nesting 3, string 256 bytes, 20 collection items, 32 locals, stack depth 50, 200,000 events, 64 MiB trace, 1 MiB record, 10 s deadline; confirmed or adjusted with the first real fixture and written into the spec; budgets and deadline are overridden only by the `record` flags `--deadline`, `--max-events`, `--max-trace-bytes` | #8 (recorder contract) |
+| D4 | Fixture stdout and stderr | Discarded, never stored | #8 (recorder contract) |
+| D5 | Exit codes | Recorder: 0 complete, 1 failed or truncated, 2 usage, 3 deadline. Viewer (`serve`): 0 normal stop, 1 cannot start (port in use, missing directory), 2 usage; kept separate from the recorder's | #2, #8 (recorder contract) |
 | D6 | Browser verification | Manual with recorded evidence; no browser automation and no new dependency; hosted browser tools not assumed | #2, #4, #6 |
 | D7 | Meaning of "previous change" | Latest earlier event in the frame whose observed state differs; also report the first later observation; unknown never equal | #5 |
 | D8 | Page size above 200 | Clamp to 200 and say so | #3 |
@@ -37,4 +37,4 @@ Entry 11 (Rust verified in CI only) does not apply: this repository has no Rust.
 | D11 | Licence | Stay unlicensed; no file added | none |
 | D12 | Source text in the trace | Each run directory holds a copy of the fixture source with its digest, so a trace is self-contained | #2 |
 
-The recorder-contract ticket's number is assigned when it is created; the orchestrator fills it in on GitHub.
+The recorder-contract ticket is #8.
