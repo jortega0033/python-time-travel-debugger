@@ -12,16 +12,17 @@ The project subagents in `.claude/agents/` are part of the work. Delegate to the
 
 ## Steps
 
-1. **Read the ticket.** `gh issue view <number>` and the epic it belongs to. Check that every prerequisite issue is closed and that no owner decision named in the ticket is still open. If the ticket is blocked, stop and say what blocks it.
+1. **Read the ticket.** `gh issue view <number>` and the epic it belongs to. Check that every prerequisite issue is closed and that no owner decision named in the ticket is still open. If the ticket is blocked, stop and say what blocks it. A ticket labelled `tracking` or with open sub-issues is a container, not work: stop and list its open sub-issues.
 2. **Read the rules.** `CLAUDE.md`, then the architecture notes it links to.
 3. **Orient and check the approach.** Delegate as the table "Before coding" says. Settle open design questions before writing code.
 4. **Branch** as the Git workflow in `CLAUDE.md` says. Never work on the default branch.
 5. **Implement** inside the ticket's stated scope. For a ticket that changes the viewer page, start with the `ui-ux-pro-max` skill (`python .claude/skills/ui-ux-pro-max/scripts/search.py` for a developer-tool design system) and keep to `docs/ui-quality.md`. Delegate the work to the implementing role that matches the files being changed (table "While coding"). Do not widen scope; note anything else you find as a follow-up.
 6. **Test.** Add or change tests for every acceptance criterion and material edge case, then run the checks listed in `CLAUDE.md`. Record each command and its result.
 7. **Specialist review.** Run every role in the table "After coding" whose trigger matches the change. For a UI ticket, check each changed screen against `docs/ui-quality.md`.
+   Before calling either reviewer, write the review files into `.claude/state/review/` of the ticket worktree (git-ignored): `git diff --stat origin/main...HEAD`, `git diff origin/main...HEAD` and each check output, and name those files in the request.
 8. **Review gate, always.** Run Code Reviewer on the full diff. Fix every material finding, re-run the checks, and have the reviewer look again until no material finding is left.
 9. **Acceptance gate, always.** Run Reality Checker with the ticket's acceptance criteria and the evidence you produced. Do not call the ticket done unless it passes.
-10. **Hand off.** Run user-facing copy, documentation and the pull request text through the `unslop` skill. Capture the evidence `CLAUDE.md` asks for and open a draft pull request that names the issue (`Part of #1`, `Closes #n`). When CI is green on the draft, mark it ready. Do not merge: only the owner merges.
+10. **Hand off.** Run user-facing copy, documentation and the pull request text through the `unslop` skill. Capture the evidence `CLAUDE.md` asks for and open a draft pull request that names the issue (`Part of #1`, `Closes #n`). When CI is green on the draft, mark it ready. Do not merge: only the owner merges. If this is the last open sub-issue of a parent, the pull request also says `Closes #<parent>`. Then end the turn with "Draft pull request #N is waiting for CI" and do not poll (see `/next-ticket` step 6).
 
 ## Roles
 
@@ -58,6 +59,8 @@ The project subagents in `.claude/agents/` are part of the work. Delegate to the
 ## Rules
 
 - The session or role that wrote a change does not count as its reviewer.
-- Read-only reviewers cannot run commands. Give them the diff, the acceptance criteria and the recorded command output.
+- Read-only reviewers cannot run commands. Give them the diff files in `.claude/state/review/`, the acceptance criteria and the recorded command output.
+- Do not change agent configuration (`.claude/agents`, `skills`, `hooks`, `settings.json`, `agency-agents`) in a ticket, including through shell commands: `ask` rules do not cover those.
+- An acceptance step that needs a person ("by hand in a normal browser", "manual, recorded") is done as far as an agent can (a scripted or headless run, with the evidence) and the rest is listed under "Owner checks" in the pull request.
 - Where a role's general advice (frameworks, dependencies, cloud services) conflicts with `CLAUDE.md`, `CLAUDE.md` wins.
 - In the pull request description, add a section "Agent roles run" listing each role that ran, what it was asked and its verdict, and any step you did yourself because a role was missing.

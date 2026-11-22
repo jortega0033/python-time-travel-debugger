@@ -19,6 +19,10 @@ Each command that was run and its result (Python version and operating system in
 | Code Reviewer | | |
 | Reality Checker | | |
 
+## Owner checks
+
+Steps the ticket marks as manual that an agent cannot do ("none" if there are none).
+
 ## Risks and rollback
 
 ## Checklist
