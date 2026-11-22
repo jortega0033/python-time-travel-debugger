@@ -58,6 +58,8 @@ Doctor exit codes: 0 healthy, 1 warnings, 2 blocked. Both commands fetch the pac
 
 `.claude/agents/loop-verifier.md` is the checker for a later maker/checker level. It is limited to `Read, Grep, Glob`, so it cannot run the tests itself and must answer `ESCALATE_HUMAN` when a verdict depends on a test run. It has no role at L1 because the loop proposes no changes.
 
+Local change: the upstream scaffold gave the file no `tools:` line (full tool access) and told it to run the tests. This repository added `tools: Read, Grep, Glob` to its frontmatter and changed its rules to match, so the limit stated above is real.
+
 ## Budget
 
 - Sub-agent spawns per run: 0 at L1.
@@ -77,7 +79,3 @@ Run on 2026-11-22 (Windows 11, Node v22.23.4) after the scaffold was adapted:
 ## Doctor suggestions that were not adopted
 
 `loop doctor` also suggests a `docs/safety.md`, issue and pull request templates, workflows, and worktree isolation notes. They were left out on purpose: the denylists and merge policy are in `loop-constraints.md`, a scheduled workflow would be the scheduler that L1 excludes, and an L1 run edits two report files only, so it needs no worktree of its own.
-
-## Ticket work is not a loop run
-
-Ticket work does not run through this loop. The owner starts it with `/next-ticket` (the go signal) and it is governed by `CLAUDE.md`, the `implement-ticket` playbook, the review gate hook, CI and branch protection. The loop stays at L1, report-only and unscheduled.

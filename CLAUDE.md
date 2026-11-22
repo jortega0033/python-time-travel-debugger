@@ -47,10 +47,10 @@ Nothing below exists yet. Names are the proposal in [docs/architecture.md](docs/
 | Run all tests | `python -m unittest` (from the repository root; `python3` on Linux) | planned: introduced by ticket #2 |
 | Record the bundled fixture | `python -m ttdebug record tally --out ./traces` | planned: introduced by ticket #2 |
 | Open the viewer on loopback | `python -m ttdebug serve --traces ./traces --port 8765` (`--port 0` picks a free port) | planned: introduced by ticket #2 |
-| Recorder limits and deadline options | flags on `record` | planned: introduced by the recorder-contract ticket (see the epic) |
+| Recorder limits and deadline options | `--deadline <seconds>`, `--max-events <n>`, `--max-trace-bytes <n>` on `record` (the only way to override limits and the deadline) | `--deadline` parsing: ticket #2; budget flags and the kill path: the recorder-contract ticket (see the epic) |
 | Performance baseline and parity measurement | a documented script, named by ticket #7 | planned: introduced by ticket #7 |
 
-`./traces` and any other trace directory is generated output and is never committed.
+`./traces` is git-ignored (`.gitignore`) and any other trace directory is generated output; neither is ever committed.
 
 ## Module boundaries (planned)
 

@@ -12,4 +12,7 @@ dist/
 *.db
 .DS_Store
 
+# Generated recorder output (ticket #2 writes ./traces)
+traces/
+
 .claude/state/
