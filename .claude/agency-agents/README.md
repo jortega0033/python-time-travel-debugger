@@ -68,3 +68,18 @@ The steps at which each role runs are in `.claude/skills/implement-ticket/SKILL.
 ## Local change: project section "In this repository" (2026-11-22)
 
 A section titled "In this repository" was inserted directly after the frontmatter of every Agency Agents role in `.claude/agents/` (not `loop-verifier`). It is project-specific text written for this repository, not upstream text: it describes the planned stack, modules and commands from `docs/TECHNICAL_SPEC.md` and marks them as planned because no code exists yet. To compare a role with the pinned upstream file, remove that section as well as the "Use proactively" sentence (and the `tools:` line where one was added).
+
+## Delivery workflow installed (2026-11-22)
+
+Installed directly, not ticketed: the review gate hook (`.claude/hooks/role_gate.py`, gate roles Code Reviewer and Reality Checker, both present in `.claude/agents/`), `.claude/settings.json`, the `next-ticket` driver, CI, pull request and issue templates, `docs/ui-quality.md`, `docs/owner-decisions.md`, and two skills copied unchanged from the owner's installed copies (`.claude/skills/ui-ux-pro-max/`, `.claude/skills/unslop/`, each with its own `PROVENANCE.md`).
+
+Local change to three roles: the "In this repository" checklists of Code Reviewer, Frontend Developer and Accessibility Auditor now name `docs/ui-quality.md`. UI Designer and UX Architect are not installed here (one small tool screen), so they have no checklist to extend.
+
+Checks run once on 2026-11-22 (Windows 11, Python 3.13.14):
+
+- `python .claude/hooks/role_gate.py --self-test`: passed (gate roles: Code Reviewer, Reality Checker).
+- `.claude/settings.json` parsed as JSON: ok. `ci.yml` and `dependabot.yml` parsed as YAML: ok.
+- `python .claude/skills/ui-ux-pro-max/scripts/search.py "developer tool trace viewer" --design-system -p "Time travel debugger"`: printed a design system.
+- `python .claude/skills/unslop/scripts/banned_phrase_scan.py <sample>`: reported 2 violations in the sample text.
+
+Loading check, run once from this worktree with `claude -p "List every project subagent ..." --model haiku` (Claude Code 2.1.323). It listed 11 project subagents: Application Security Engineer, Accessibility Auditor, Code Reviewer, Reality Checker and Software Architect with tools `Read, Grep, Glob`; Backend Architect, Frontend Developer, API Tester, Performance Benchmarker, Test Automation Engineer and loop-verifier with no `tools:` line. Ten start with "In this repository"; `loop-verifier` does not (it belongs to the Loop setup). It listed 8 project skills: implement-ticket, next-ticket, issue-triage, loop-budget, loop-constraints, loop-intake, ui-ux-pro-max, unslop. The run printed a warning that the workspace was not trusted and ignored the 23 `permissions.allow` entries from `.claude/settings.json`; trust is granted once interactively.

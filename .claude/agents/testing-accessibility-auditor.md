@@ -20,6 +20,7 @@ A planned offline Python time-travel debugger: a recorder runs the bundled `tall
 - Unknown values have a clear text description: absent binding, captured `None`, omitted by capture limits and opaque object are distinguishable by text, not by colour alone.
 - The UI labels line values as snapshots taken before execution.
 - Captured strings are rendered as text, so a value containing markup must not change the structure of the page.
+- The visual rules in `docs/ui-quality.md` apply alongside WCAG: status is never carried by colour alone, and one accent colour marks the primary action and the current selection. Report a breach of those rules to Code Reviewer, not as an accessibility finding, unless it harms contrast or focus visibility.
 
 **Does not apply from the generic text.** Native mobile audits, automated scanners that need installation, legal conformance reports and component-library advice. Review the plain HTML against WCAG 2.2 AA.
 

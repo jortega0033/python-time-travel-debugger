@@ -18,6 +18,9 @@ A planned offline Python time-travel debugger. A developer records one run of a 
 | Backlog, dependency order, estimates, owner decisions with their defaults | Epic issue #1 and its child issues on GitHub. The epic's table is authoritative. |
 | Loop setup and its limits | [LOOP.md](LOOP.md), [loop-constraints.md](loop-constraints.md) |
 | Project subagents, origin and local changes | [.claude/agency-agents/README.md](.claude/agency-agents/README.md) |
+| Owner decisions (dated) | [docs/owner-decisions.md](docs/owner-decisions.md) |
+| UI rules for the viewer | [docs/ui-quality.md](docs/ui-quality.md) |
+| Releasing (owner only) | [docs/RELEASING.md](docs/RELEASING.md) |
 
 The PRD and the technical specification repeat the same design text. If they differ, the technical specification wins for contracts and the PRD for scope. A ticket that changes a contract updates both in the same pull request.
 
@@ -63,7 +66,7 @@ The map and the dependency direction are in [docs/architecture.md](docs/architec
 
 - `main` is the default branch. One branch per ticket, named `<issue-number>-<short-slug>`. A pull request to `main` per ticket, naming the issue (`Part of #1`, `Closes #n`). Small commits with imperative subjects.
 - Only the owner merges. Never push to `main`, never force-push, never merge your own pull request.
-- Do not push or open a pull request unless the owner asked in the current session.
+- Do not push or open a pull request unless the owner asked in the current session. Starting `/next-ticket` counts as that request for the one ticket it runs.
 - Never commit trace directories, `.env*` or generated output.
 - Do not change `.claude/agents/`, `LOOP.md`, `loop-constraints.md` or `loop-budget.md` as part of a feature ticket.
 
@@ -92,3 +95,15 @@ When asked to implement, continue or finish a GitHub issue, follow the playbook 
 - **After coding:** each specialist whose trigger matches (Application Security Engineer, Accessibility Auditor, API Tester, Performance Benchmarker).
 - **On every ticket, before it is called done:** Code Reviewer, then Reality Checker. Read-only roles cannot run commands: give them the diff, the acceptance criteria and the recorded output.
 - The session that wrote a change does not count as its reviewer. List each role that ran, what it was asked and its verdict in the pull request under "Agent roles run".
+
+## Delivery workflow
+
+- **Driver and playbook.** The owner starts a ticket with `/next-ticket` ([`.claude/skills/next-ticket/SKILL.md`](.claude/skills/next-ticket/SKILL.md)); it runs the playbook [`.claude/skills/implement-ticket/SKILL.md`](.claude/skills/implement-ticket/SKILL.md). Starting it is the go signal; there is no scheduler. Agents take a ticket up to a ready pull request and never merge or release.
+- **Review gate hook.** [`.claude/hooks/role_gate.py`](.claude/hooks/role_gate.py), wired in [`.claude/settings.json`](.claude/settings.json), blocks `gh pr create` and `gh pr ready` until Code Reviewer and Reality Checker have run after the last code edit; documentation-only changes pass. `ROLE_GATE=off` in the environment Claude Code is started from switches it off for that session.
+- **Permissions.** `.claude/settings.json` allows the documented commands and git and gh read operations, asks before edits to CI, agent configuration, skills, hooks and Loop files, and denies force pushes, pushes to `main`, `gh pr merge`, releases and reads of `.env`.
+- **CI.** [`.github/workflows/ci.yml`](.github/workflows/ci.yml) runs the unit tests (once tests exist) and the gate self-test on Linux and Windows with Python 3.12 and 3.13. Every job must be green before a pull request is marked ready.
+- **Pull request.** Use [`.github/pull_request_template.md`](.github/pull_request_template.md). Add a line to [`CHANGELOG.md`](CHANGELOG.md) under `Unreleased` in every ticket pull request.
+- **Labels.** `status:ready`, `status:blocked`, `status:in-progress`, `needs-decision`.
+- **UI and copy.** UI tickets start with the `ui-ux-pro-max` skill and end with a check of the changed screens against [`docs/ui-quality.md`](docs/ui-quality.md). User-facing copy, documentation and pull request text go through the `unslop` skill before the pull request is opened.
+- **Decisions.** [`docs/owner-decisions.md`](docs/owner-decisions.md) records what the owner decided and where it is implemented. A decision that blocks a ticket stops the ticket.
+- **Only the owner merges and releases.**

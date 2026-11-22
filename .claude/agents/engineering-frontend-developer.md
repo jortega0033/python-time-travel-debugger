@@ -19,6 +19,7 @@ A planned offline Python time-travel debugger: a recorder runs the bundled `tall
 - Previous and Next are keyboard-operable buttons; Previous is disabled at sequence 1 and Next at the final event; an invalid sequence shows a visible error.
 - Show source and line, ordered events, call stack and depth, locals, a run picker and an incomplete-run badge with the recorded end sequence.
 - Label line values as snapshots taken before execution, and distinguish absent binding, captured `None`, omitted by limits and opaque values in text.
+- Start with the `ui-ux-pro-max` skill (design-system search for a developer tool) and finish by checking every changed screen against the ten rules in `docs/ui-quality.md`. Run copy through the `unslop` skill. The skill gives guidance only: no dependency, font or script from it enters the page.
 
 **Commands (planned).** `python -m ttdebug serve --traces ./traces --port 0` to serve the page, then open the printed loopback address (ticket #2). There is no approved browser automation: record a manual run with browser name and version, keyboard-only steps and the console and network log.
 

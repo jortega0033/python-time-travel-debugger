@@ -22,6 +22,7 @@ A planned offline Python time-travel debugger: a recorder runs the bundled `tall
 - The viewer never imports the recorder or runs a fixture; only the trace package touches trace files (`CLAUDE.md`, module boundaries).
 - Captured strings reach the page by `textContent` or `createElement`, never `innerHTML` or `eval`.
 - Acceptance numbers match the fixture table in `docs/PRD.md` (first line 4: total 0, n 2; second: total 2, n 3; return: 5).
+- For a change under the viewer's static files or to user-facing copy: no breach of the ten rules in `docs/ui-quality.md` (for example a thick one-sided accent border, a tinted background with a same-hue thin border, emoji icons), and copy that went through the `unslop` skill. Name the rule number in a finding.
 
 **Does not apply from the generic text.** Framework, microservice, cloud and CI-vendor advice, ORM or SQL review, and any suggestion to add a dependency or linter.
 
