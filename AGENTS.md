@@ -4,15 +4,15 @@ The full repository instructions are in [CLAUDE.md](CLAUDE.md). This file repeat
 
 ## Status
 
-Nothing is implemented. The commands in `CLAUDE.md` are planned and run only after ticket #2 lands.
+Scaffold only: package skeleton and smoke tests. `record` and `serve` exit 1 with "not implemented yet: see #<ticket>" until tickets #10 and #11 land. See `CLAUDE.md` for which commands are real.
 
-## Test command (planned: introduced by ticket #2)
+## Test command
 
 ```
 python -m unittest
 ```
 
-Run it from the repository root. CPython 3.12, standard library only. Do not add pip or npm dependencies.
+Run it from the repository root. CPython 3.12, standard library only. Do not add pip or npm dependencies. Lint: `python -m compileall -q ttdebug tests`.
 
 ## Ticket work
 
