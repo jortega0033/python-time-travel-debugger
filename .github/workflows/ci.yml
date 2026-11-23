@@ -27,10 +27,8 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - name: Unit tests
-        # Guard: the repository has no tests until ticket #2 (walking skeleton) adds
-        # the first ones. Ticket #2 removes this `if` so the step runs unconditionally
-        # and fails when no test is found.
-        if: ${{ hashFiles('tests/**/*.py') != '' }}
         run: python -m unittest
+      - name: Byte-compile check
+        run: python -m compileall -q ttdebug tests
       - name: Review gate self-test
         run: python .claude/hooks/role_gate.py --self-test
