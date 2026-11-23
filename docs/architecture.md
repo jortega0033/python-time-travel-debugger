@@ -1,6 +1,6 @@
 # Implementer map (planned)
 
-Status: planned, not implemented. This page adds only what the technical specification leaves open for someone writing the first code: where things live and which way dependencies point. Contracts (event envelope, previews, storage, lookup, viewer) stay in [TECHNICAL_SPEC.md](TECHNICAL_SPEC.md) and are not repeated here. Ticket #2 creates the layout and corrects this page where it differs.
+Status: layout scaffolded (empty packages, entry point, smoke tests); behaviour planned. This page adds only what the technical specification leaves open for someone writing the first code: where things live and which way dependencies point. Contracts (event envelope, previews, storage, lookup, viewer) stay in [TECHNICAL_SPEC.md](TECHNICAL_SPEC.md) and are not repeated here. Ticket #2 fills the layout and corrects this page where it differs.
 
 ## Proposed layout
 

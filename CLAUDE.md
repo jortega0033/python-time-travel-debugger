@@ -6,7 +6,7 @@ Working instructions for this repository. Read this file first, then the documen
 
 A planned offline Python time-travel debugger. A developer records one run of a bundled, deterministic fixture (`tally`) with CPython 3.12, then reopens the immutable trace in a loopback, read-only browser viewer, steps backwards and finds the earlier line where a local value changed, without running the program again.
 
-**Status: nothing is implemented.** The repository holds the product plan, the technical specification and the backlog. No command below runs until ticket #2 (the walking skeleton) lands. Every command, path and module name in this file is planned and is marked as such; when a ticket makes one real, that ticket's pull request updates this file in the same change.
+**Status: scaffold only.** The repository holds the product plan, the technical specification, the backlog and an empty package skeleton (`ttdebug/`, `tests/`, `pyproject.toml`) with smoke tests. `record` and `serve` exit non-zero with "not implemented yet: see #<ticket>" until tickets #10 and #11 land. Commands and modules not yet real stay marked planned; when a ticket makes one real, that ticket's pull request updates this file in the same change.
 
 ## Sources of truth
 
@@ -38,15 +38,17 @@ All of these come from the PRD and the technical specification, section "Technic
 - Platforms are not stated in the plan. Local development here runs on Windows 11 with Python 3.13.14 (3.12 is not installed on this machine); the CI matrix is set by the delivery workflow.
 - Licence: not selected. Do not add a LICENSE file or licence headers without the owner.
 
-## Commands (all planned)
+## Commands
 
-Nothing below exists yet. Names are the proposal in [docs/architecture.md](docs/architecture.md); ticket #2 fixes them and corrects this table.
+The scaffold makes the test, byte-compile and help commands real. Names for the rest are the proposal in [docs/architecture.md](docs/architecture.md); ticket #2 fixes them and corrects this table. There is no formatter or type checker: the plan allows no dependency, so none is installed.
 
 | Purpose | Command | Status |
 |---|---|---|
-| Run all tests | `python -m unittest` (from the repository root; `python3` on Linux) | planned: introduced by ticket #2 |
-| Record the bundled fixture | `python -m ttdebug record tally --out ./traces` | planned: introduced by ticket #2 |
-| Open the viewer on loopback | `python -m ttdebug serve --traces ./traces --port 8765` (`--port 0` picks a free port) | planned: introduced by ticket #2 |
+| Run all tests | `python -m unittest` (from the repository root; `python3` on Linux) | real (smoke tests only; product tests arrive with the tickets) |
+| Lint (byte-compile check) | `python -m compileall -q ttdebug tests` | real |
+| Usage and version | `python -m ttdebug --help`, `python -m ttdebug --version` | real |
+| Record the bundled fixture | `python -m ttdebug record tally --out ./traces` | parsed, exits 1 "not implemented yet: see #10"; behaviour: ticket #10 |
+| Open the viewer on loopback | `python -m ttdebug serve --traces ./traces --port 8765` (`--port 0` picks a free port) | parsed, exits 1 "not implemented yet: see #11"; behaviour: ticket #11 |
 | Recorder limits and deadline options | `--deadline <seconds>`, `--max-events <n>`, `--max-trace-bytes <n>` on `record` (the only way to override limits and the deadline) | `--deadline` parsing: ticket #2; budget flags and the kill path: the recorder-contract ticket (see the epic) |
 | Performance baseline and parity measurement | a documented script, named by ticket #7 | planned: introduced by ticket #7 |
 
@@ -101,7 +103,7 @@ When asked to implement, continue or finish a GitHub issue, follow the playbook 
 - **Driver and playbook.** The owner starts a ticket with `/next-ticket` ([`.claude/skills/next-ticket/SKILL.md`](.claude/skills/next-ticket/SKILL.md)); it runs the playbook [`.claude/skills/implement-ticket/SKILL.md`](.claude/skills/implement-ticket/SKILL.md). Starting it is the go signal; there is no scheduler. Agents take a ticket up to a ready pull request and never merge or release. Only a leaf ticket is work: `/next-ticket` never picks a `tracking` parent or a ticket with open sub-issues, and refuses one given by number with the list of its open sub-issues. The pull request of the last open sub-issue says `Closes #<sub-issue>` and `Closes #<parent>`.
 - **Review gate hook.** [`.claude/hooks/role_gate.py`](.claude/hooks/role_gate.py), wired in [`.claude/settings.json`](.claude/settings.json), blocks `gh pr create` and `gh pr ready` until Code Reviewer and Reality Checker have run after the last code edit; documentation-only changes pass. `ROLE_GATE=off` in the environment Claude Code is started from switches it off for that session.
 - **Permissions.** `.claude/settings.json` allows the documented commands and git and gh read operations, asks before edits to CI, agent configuration, skills, hooks and Loop files (the agent paths also at any depth, `**/.claude/...` for `Edit` and `Write`, so ticket worktrees ask too), and denies force pushes, pushes to `main`, `gh pr merge`, releases and reads of `.env`.
-- **CI.** [`.github/workflows/ci.yml`](.github/workflows/ci.yml) runs the unit tests (once tests exist) and the gate self-test on Linux and Windows with Python 3.12 and 3.13. Every job must be green before a pull request is marked ready. The agent does not poll: after `gh pr create --draft` and `git push` it ends the turn with "Draft pull request #N is waiting for CI" and reads `gh pr checks` once when woken.
+- **CI.** [`.github/workflows/ci.yml`](.github/workflows/ci.yml) runs the unit tests (unguarded), the byte-compile check and the gate self-test on Linux and Windows with Python 3.12 and 3.13. Every job must be green before a pull request is marked ready. The agent does not poll: after `gh pr create --draft` and `git push` it ends the turn with "Draft pull request #N is waiting for CI" and reads `gh pr checks` once when woken.
 - **Reviewer files and manual steps.** Code Reviewer and Reality Checker have no shell: before calling them, write the diff and local evidence to `.claude/state/review/` (`git diff --stat origin/main...HEAD`, `git diff origin/main...HEAD`, check outputs). A criterion that needs a person is done as far as an agent can and the rest is listed under "Owner checks" in the pull request; Reality Checker accepts that only when the ticket marks the step as manual.
 - **Pull request.** Use [`.github/pull_request_template.md`](.github/pull_request_template.md). Add a line to [`CHANGELOG.md`](CHANGELOG.md) under `Unreleased` in every ticket pull request.
 - **Labels.** `status:ready`, `status:blocked`, `status:in-progress`, `needs-decision`.

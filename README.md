@@ -1,6 +1,8 @@
 # Python Time-Travel Debugger
 
-A planned offline project. Implementation has not started. The repository currently contains the product plan, technical specification and implementation backlog.
+A planned offline project. The product is not implemented. The repository contains the product plan, technical specification, implementation backlog and a package scaffold (`ttdebug/`, `tests/`) with smoke tests only.
+
+Commands that work now: `python -m unittest`, `python -m ttdebug --help`, `python -m ttdebug --version`. `record` and `serve` are parsed but not built (tickets #10 and #11).
 
 ## Plan
 
