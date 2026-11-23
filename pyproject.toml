@@ -1,0 +1,6 @@
+[project]
+name = "ttdebug"
+version = "0.0.0"
+description = "Offline Python time-travel debugger: record a fixture, step back in a loopback browser viewer."
+requires-python = ">=3.12"
+dependencies = []
