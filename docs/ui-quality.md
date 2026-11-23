@@ -21,3 +21,4 @@ Colours, spacing, radius and motion come from the design tokens in [design-token
 - User-facing copy, documentation and pull request text go through the `unslop` skill before the pull request is opened.
 - Code Reviewer, Frontend Developer and Accessibility Auditor name this file in their checklists. Enforcement is by the review gate, not by a script. Rule 1 can be linted; rule 2 cannot be detected reliably from CSS.
 - These rules sit beside the accessibility requirements in `docs/TECHNICAL_SPEC.md` ("Viewer contract"): unknown values are told apart by text, not by colour alone.
+- Rule 8 is read with the "Accent rules" section of [design-tokens.md](design-tokens.md) and owner decision 14 in [owner-decisions.md](owner-decisions.md): the accent also marks the current step, and `--focus` is a focus indicator, exempt from the accent limit.
