@@ -10,9 +10,16 @@ The viewer uses the Pipenzo "Flow look" tokens: a black page, Flow-style alpha l
 
 ## Rule
 
-New UI uses these tokens. No new colour literals (`#hex`, `rgb()`, `hsl()`) in the page's CSS or JavaScript. Link `tokens.css` before any other stylesheet. Script that needs a colour (for example on a canvas) reads it with `getComputedStyle(document.documentElement).getPropertyValue('--token')`.
+New UI uses these tokens. No new colour literals (`#hex`, `rgb()`, `hsl()`) in the page's CSS or JavaScript. Link `tokens.css` before any other stylesheet. A ticket that creates a page or its static allowlist links `tokens.css` first and serves it (the allowlist and its test). (Recommended by the orchestrator, adopted under the owner's delegation of 2026-11-23.) Script that needs a colour (for example on a canvas) reads it with `getComputedStyle(document.documentElement).getPropertyValue('--token')`.
 
-The file header holds the accent rules: yellow only on the primary action and the current-step marker; text never sits on a bare alpha layer.
+## Accent rules
+
+These rules take precedence over the header comment of `tokens.css`. That header is narrower: it lists yellow only for the primary button, the current-step node, the "your turn" chip and two dots. It cannot be edited here, because the copy must stay identical to the source. Where the two differ, this document decides. Text never sits on a bare alpha layer.
+
+- **Current selection (decided by the owner on 2026-11-23, UI rule 8).** Yellow is used for the primary action, the current-step marker and the current selection. How it is applied was recommended by the orchestrator and adopted under the owner's delegation of the same day: a selection uses a solid `--primary` fill with `--on-primary` text, not only a yellow border (a yellow border is about 1.5:1 against white on light). It also carries a second sign that is not colour (weight, icon or text) and the existing aria attribute (for example `aria-selected` or `aria-current`). Never a tint with a border of the same hue, and never a thick border on one side.
+- **Focus ring.** `--focus` is a focus indicator and is exempt from the accent limit, including where it is yellow in the dark block. A ticket that says the focus style stays unchanged means the rule on `main` after the token pull request. (Recommended by the orchestrator, adopted under the owner's delegation of 2026-11-23.)
+- **Themes.** Contrast checks and the "no colour alone" checks cover both the light block and the dark block of `tokens.css`. (Same source as the focus ring.)
+- **Page status.** Where the page still marks a selection in a neutral colour, it does not follow this rule yet. The page follows in ticket work; this document does not claim it is done.
 
 ## Light and dark
 

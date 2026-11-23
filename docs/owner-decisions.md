@@ -2,7 +2,7 @@
 
 A dated record of the decisions the owner made for this repository. Each entry says what was decided, when, and where it is implemented. Changing any entry needs the owner. An agent that finds a decision blocking a ticket stops and says so.
 
-All entries date from 2026-11-22, except entry 13 (2026-11-23).
+All entries date from 2026-11-22, except entries 13 and 14 (2026-11-23).
 
 | # | Decision | Implemented in |
 |---|---|---|
@@ -18,6 +18,7 @@ All entries date from 2026-11-22, except entry 13 (2026-11-23).
 | 10 | Open decisions on tickets are settled with the ticket's stated default (list below). | The tickets named below |
 | 12 | The ten UI rules in `docs/ui-quality.md` are binding, and the `ui-ux-pro-max` and `unslop` skills are installed and used for UI work and for copy. | `docs/ui-quality.md`, `.claude/skills/ui-ux-pro-max/`, `.claude/skills/unslop/` |
 | 13 | 2026-11-23. Visual system: Pipenzo Flow look tokens (docs/design-tokens.md). SDLC kit version: jortega0033/sdlc-kit v1.0.0. | `docs/design-tokens.md`, `ttdebug/viewer/static/tokens.css` |
+| 14 | 2026-11-23. Accent rules. D1 Current selection: the yellow accent is used for the primary action, the current-step marker and the current selection (UI rule 8). Decided by the owner on 2026-11-23. How (recommended by the orchestrator, adopted under the owner's delegation of the same day): a selection uses a solid `--primary` fill with `--on-primary` text, plus a second sign that is not colour and the existing aria attribute; never a tint with a same-hue border, never a thick one-sided border. D2 Focus ring: `--focus` is a focus indicator, exempt from the accent limit. Recommended by the orchestrator, adopted under the owner's delegation of 2026-11-23. D3 Themes: contrast and no-colour-alone checks cover both the light and the dark block of `tokens.css`. Recommended by the orchestrator, adopted under the owner's delegation of 2026-11-23. | `docs/design-tokens.md` ("Accent rules"); the page follows in ticket work |
 
 Entry 11 (Rust verified in CI only) does not apply: this repository has no Rust.
 
