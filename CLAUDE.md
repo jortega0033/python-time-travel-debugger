@@ -49,7 +49,7 @@ The scaffold makes the test, byte-compile and help commands real. Names for the 
 | Usage and version | `python -m ttdebug --help`, `python -m ttdebug --version` | real |
 | Record the bundled fixture | `python -m ttdebug record tally --out ./traces` | parsed, exits 1 "not implemented yet: see #10"; behaviour: ticket #10 |
 | Open the viewer on loopback | `python -m ttdebug serve --traces ./traces --port 8765` (`--port 0` picks a free port) | parsed, exits 1 "not implemented yet: see #11"; behaviour: ticket #11 |
-| Recorder limits and deadline options | `--deadline <seconds>`, `--max-events <n>`, `--max-trace-bytes <n>` on `record` (the only way to override limits and the deadline) | `--deadline` parsing: ticket #2; budget flags and the kill path: the recorder-contract ticket (see the epic) |
+| Recorder limits and deadline options | `--deadline <seconds>`, `--max-events <n>`, `--max-trace-bytes <n>` on `record` (the only way to override limits and the deadline) | `--deadline` parsing, validation and the default: ticket #10; budget flags and the kill path: the recorder-contract ticket (see the epic) |
 | Performance baseline and parity measurement | a documented script, named by ticket #7 | planned: introduced by ticket #7 |
 
 `./traces` is git-ignored (`.gitignore`) and any other trace directory is generated output; neither is ever committed.
