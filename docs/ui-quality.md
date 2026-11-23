@@ -13,6 +13,8 @@ These rules are binding for the viewer's page under `ttdebug/viewer/static/` and
 9. Dense, aligned layouts on a consistent spacing scale. No card grid where a table or a list is the right form (the locals and the event list are tables or lists).
 10. User-facing copy is plain and specific: no filler, no exclamation marks, and the same word for the same thing everywhere.
 
+Colours, spacing, radius and motion come from the design tokens in [design-tokens.md](design-tokens.md); new UI uses them and adds no colour literals.
+
 ## How the rules are applied
 
 - A UI ticket starts with the `ui-ux-pro-max` skill (design-system search for the product type) and ends with a check of every changed screen against this file. The page still uses plain HTML, CSS and JavaScript only; the skill gives guidance, not dependencies.
