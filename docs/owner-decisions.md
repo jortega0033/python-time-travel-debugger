@@ -40,3 +40,13 @@ Entry 11 (Rust verified in CI only) does not apply: this repository has no Rust.
 | D12 | Source text in the trace | Each run directory holds a copy of the fixture source with its digest, so a trace is self-contained | #2 |
 
 The recorder-contract ticket is #8.
+
+## Program decisions (owner, 2026-11-24)
+
+The owner accepted the goal and each suggestion below. They apply from the phase they name; the rules of `CLAUDE.md` hold for phase 1 as written.
+
+| Decision | Implemented in |
+|---|---|
+| The repository has a program goal above phase 1: time-travel debugging for real Python programs, in six phases. | Program issue #26 |
+| Running arbitrary local scripts ends the owned-fixtures rule. Suggested: allow it behind an explicit flag, in a separate process with limits. | Program issue #26 |
+| Several CPython versions. Suggested: 3.12 first, then 3.13 and 3.14 as a matrix. | Program issue #26 |
