@@ -1,5 +1,7 @@
 # Python Time-Travel Debugger
 
+> This document specifies phase 1 of the program in [#26](https://github.com/jortega0033/python-time-travel-debugger/issues/26). Hour figures in it are early estimates for that phase; its open tickets add up to 42 to 64 hours (2026-11-24). Work that it defers is planned in the later phases only where the program names it.
+
 Planning brief for inspiration project #48. Product status is from scratch. The milestones, fixtures, and benchmarks in this brief are planned. Estimates are engineering hours.
 
 ## Product requirements

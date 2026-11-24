@@ -6,4 +6,5 @@ All notable changes are recorded here, in the [Keep a Changelog](https://keepach
 
 ### Added
 
+- Program goal, score and phases 1 to 6 (#26).
 - Delivery workflow: CI, review gate hook, pull request and issue templates, `/next-ticket` driver, UI quality rules and owner decision record.
